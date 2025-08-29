@@ -1,32 +1,18 @@
 #include <stdio.h>
 #include <conio.h>
 #include <string.h>
-#define MAX_USERS 10
+#include "bank.h"
 
-char inputUsername[50];
-int i, ID;
-int isUserLoggedin = -1, isAdminLoggedin = -1;
 
-struct BankAccount {
-     char UID[13];
-     char fullName[100];
-     char mobileNumber[11];
-     char address[200];
-     char email[50];
-     double balance;
-     char password[50];
-};
-
-struct BankAccount userAccounts[MAX_USERS];
-int userCount = 0;
-
+// Main Program
 
 int main() {
-     int choice, Select, attempts;
+
+     // Variable declarations for the main program loop
+     int choice = 0, Select = 0;
+     int attempts = 3;
+
      start:
-     attempts = 3;
-     choice = 0;
-     Select = 0;
      do {
 	  Heading();
 	  if(isAdminLoggedin == -1 && isUserLoggedin == -1) {
@@ -36,15 +22,16 @@ int main() {
 	       printf("\n3. Don't have an account? Create a new one");
 	       printf("\n4. Exit");
 	       printf("\n\n                    Enter your choice => ");
-	       if (scanf("%d", &Select) != 1) {
-    // Clear the input buffer
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF);
 
-    printf("\n\n   \x1B[31mInvalid input. Please enter a number.\x1B[0m\n");
-    getch();
-    continue; // Restart the loop
-}
+	       if (scanf("%d", &Select) != 1) {
+                    // Clear the input buffer
+                    int c;
+	            while ((c = getchar()) != '\n' && c != EOF);
+
+    	            printf("\n\n   \x1B[31mInvalid input. Please enter a number.\x1B[0m\n");
+    		    getch();
+         	    continue; // Restart the loop
+	       }
 	       switch(Select) {
 		    case 1:
 			 while(1) {
@@ -136,8 +123,6 @@ int main() {
 			 printf("\n\n   \x1B[33mLogged out successfully!\n   Press any key to go back to the main menu\x1B[0m");
 			 getch();
 			 goto start;
-			 break
-			 ;
 		    case 9:
 			 return 0;
 		    default:
@@ -168,7 +153,6 @@ int main() {
 			 printf("\n\n   \x1B[33mLogged out successfully!\n   Press any key to go back to the main menu\x1B[0m");
 			 getch();
 			 goto start;
-			 break;
 		    case 6:
 			 return 0;
 		    default:
@@ -181,5 +165,4 @@ int main() {
 
      getch();
      return 0;
-
 }

@@ -1,4 +1,32 @@
+#ifndef BANK_H
+#define BANK_H
+
+#define MAX_USERS 10
+
 // This file contains the declarations of the functions that are defined in bank.c
+
+
+// Structure to define a bank account
+
+struct BankAccount {
+     char UID[13];
+     char fullName[100];
+     char mobileNumber[11];
+     char address[200];
+     char email[50];
+     double balance;
+     char password[50];
+};
+
+
+// Global variables (declared here, defined in bank.c)
+extern struct BankAccount userAccounts[MAX_USERS];
+extern char inputUsername[50];
+extern int i;
+extern int ID;
+extern int userCount;
+extern int isUserLoggedin;
+extern int isAdminLoggedin;
 
 
 // Function prototype for printing the Heading
@@ -51,3 +79,5 @@ void balanceInquiry();
 
 // Function prototype for validating available balance
 void checkBalance();
+
+#endif // BANK_H

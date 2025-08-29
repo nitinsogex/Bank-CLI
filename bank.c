@@ -1,7 +1,17 @@
-#include <stdio.h>
-#include <conio.h>
 #include "bank.h"
 
+
+// Initialization of Global variables for user authentication
+
+char inputUsername[50];
+int i, ID;
+int isUserLoggedin = -1, isAdminLoggedin = -1;
+struct BankAccount userAccounts[MAX_USERS];
+int userCount = 0;
+
+
+// Clears the screen and displays the main program title with a decorative border
+// This function is called at the start of each menu
 void Heading() {
      clrscr();
      printf("\n\n  \x1B[36m*****\x1B[0m         \x1B[7m Welcome to ANovative Technologies Bank Limited \x1B[0m         \x1B[36m*****\x1B[0m\n\n");
@@ -9,6 +19,11 @@ void Heading() {
 }
 
 
+/*
+* Handles the admin login process
+* Prompts the user for a username and password and verifies them against
+* predefined constants. Returns 1 for success and 0 for failure
+*/
 int adminLogin() {
      const char username[] = "NitinSoge";
      const char password[] = "********";
@@ -30,6 +45,7 @@ int adminLogin() {
 }
 
 
+// Displays the Menu options for admin
 int adminMenu() {
      int choice;
      Heading();
@@ -49,6 +65,7 @@ int adminMenu() {
 }
 
 
+// Handles the user login process
 int userLogin() {
      int userIndex;
      char inputPassword[20];
@@ -78,6 +95,7 @@ int userLogin() {
 }
 
 
+// Displays the Menu options for user
 int userMenu() {
      int choice;
      Heading();
@@ -94,6 +112,7 @@ int userMenu() {
 }
 
 
+// Allows admin to create a new account
 int createAccountbyAdmin() {
      char name[100], uid[13], mobno[11], email[50];
      int len, i, onlyAlphabets, check, isValid, atPosition;
@@ -258,6 +277,7 @@ int createAccountbyAdmin() {
 }
 
 
+// Allows a user to create a new account
 int createAccountbyUser() {
      char name[100], uid[13], mobno[11], email[50];
      int len, i, onlyAlphabets, check, isValid, atPosition;
@@ -419,6 +439,7 @@ int createAccountbyUser() {
 }
 
 
+// Check if account exists or not using the User ID
 int checkUserbyUID(const char UID[]) {
      for(i = 0; i < userCount; i++) {
 	  if(strcmp(UID, userAccounts[i].UID) == 0) {
@@ -429,6 +450,7 @@ int checkUserbyUID(const char UID[]) {
 }
 
 
+// Allow the admin to check account details for specific user
 void checkAccountDetails() {
      char uidToCheck[13];
      int userIndex;
@@ -455,6 +477,8 @@ void checkAccountDetails() {
      getch();
 }
 
+
+// Allow user to check their own account details
 void checkAccountDetailsbyUser() {
      Heading();
 	  printf("\n  \x1B[32mWelcome: %s\x1B[0m\n",inputUsername);
@@ -468,6 +492,7 @@ void checkAccountDetailsbyUser() {
 }
 
 
+// Handles fund transfer from one account to another through admin
 void transferFunds() {
      char senderUID[13], receiverUID[13];
      double amount;
@@ -515,6 +540,8 @@ void transferFunds() {
      getch();
 }
 
+
+// Handles the fund transfer from user to another user
 void transferFundsbyUser() {
      char receiverUID[13];
      double amount;
@@ -552,6 +579,7 @@ void transferFundsbyUser() {
 }
 
 
+// Allow admin to deposit cash in a specific users account
 void cashDeposit() {
      char accountUID[13];
      int accountIndex;
@@ -581,6 +609,7 @@ void cashDeposit() {
 }
 
 
+// Allow admin to withdraw cash from users account
 void cashWithdrawal() {
      char accountUID[13];
      double money;
@@ -618,6 +647,7 @@ void cashWithdrawal() {
 }
 
 
+// Help user to reset password
 void resetPassword() {
      char newPassword[50], renewPassword[50];
      int confirmation;
@@ -644,6 +674,7 @@ void resetPassword() {
 }
 
 
+// Allow admin to check available balance of an user
 void balanceInquiry() {
      char accountUID[13];
      int accountIndex;
@@ -668,6 +699,7 @@ void balanceInquiry() {
 }
 
 
+// User can check their available balance through this function
 void checkBalance() {
      Heading();
      printf("\n  \x1B[32mWelcome: %s\x1B[0m\n",inputUsername);
